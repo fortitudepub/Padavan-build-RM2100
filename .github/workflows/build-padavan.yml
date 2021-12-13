@@ -58,6 +58,7 @@ jobs:
         sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNS/d' .config #删除配置项SMARTDNS
         sed -i '/CONFIG_FIRMWARE_INCLUDE_SRELAY/d' .config #删除配置项 srelay 代理
         sed -i 's/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=n/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=y/g' .config
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_HTOP/d' .config #删除配置项htop
         ######################################################################
         #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
         ######################################################################
@@ -66,7 +67,7 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_SCUTCLIENT=n" >> .config #SCUTCLIENT
         ##校园网##
         ##科学上网##
-        echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y" >> .config #SS plus+
+        echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=n" >> .config #SS plus+
         echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=n" >> .config # simple-obfs混淆插件
         echo "CONFIG_FIRMWARE_INCLUDE_SSSERVER=n" >> .config #SS server
         echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=y" >> .config #集成v2ray执行文件（3.8M左右)，如果不集成，会从网上下载下来执行，不影响正常使用
@@ -77,6 +78,8 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_TUNSAFE=n" >> .config #TUNSAFE
         echo "CONFIG_FIRMWARE_INCLUDE_SRELAY=n" >> .config #可以不集成
         ##代理服务##
+        ##下载失败，不编译HTOP
+        echo "CONFIG_FIRMWARE_INCLUDE_HTOP=n" >> .config #可以不集成
         ##广告管理##
         echo "CONFIG_FIRMWARE_INCLUDE_ADBYBY=y" >> .config #adbyby plus+
         echo "CONFIG_FIRMWARE_INCLUDE_KOOLPROXY=y" >> .config #KP广告过滤
@@ -92,8 +95,8 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_CADDYBIN=n" >> .config #集成caddu执行文件，此文件有13M,请注意固件大小。如果不集成，会从网上下载下来执行，不影响正常使用
         ##文件管理##
         ##音乐解锁##
-        echo "CONFIG_FIRMWARE_INCLUDE_WYY=y" >> .config #网易云解锁
-        echo "CONFIG_FIRMWARE_INCLUDE_WYYBIN=y" >> .config #网易云解锁GO版本执行文件（4M多）注意固件超大小,不集成会自动下载
+        echo "CONFIG_FIRMWARE_INCLUDE_WYY=n" >> .config #网易云解锁
+        echo "CONFIG_FIRMWARE_INCLUDE_WYYBIN=n" >> .config #网易云解锁GO版本执行文件（4M多）注意固件超大小,不集成会自动下载
         ##音乐解锁##
         ##内网穿透服务##
         echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=y" >> .config #zerotier ~1.3M
@@ -115,9 +118,9 @@ jobs:
         sed -i '/CONFIG_FIRMWARE_INCLUDE_NFSC/d' .config
         echo "CONFIG_FIRMWARE_INCLUDE_NFSC=y" >> .config 
         sed -i '/CONFIG_FIRMWARE_INCLUDE_ARIA/d' .config
-        echo "CONFIG_FIRMWARE_INCLUDE_ARIA=y" >> .config
+        echo "CONFIG_FIRMWARE_INCLUDE_ARIA=n" >> .config
         sed -i '/CONFIG_FIRMWARE_INCLUDE_ARIA_WEB_CONTROL/d' .config
-        echo "CONFIG_FIRMWARE_INCLUDE_ARIA_WEB_CONTROL=y" >> .config
+        echo "CONFIG_FIRMWARE_INCLUDE_ARIA_WEB_CONTROL=n" >> .config
         #########################################################################################
         sudo ./clear_tree
         sudo ./build_firmware_modify $TNAME 0
