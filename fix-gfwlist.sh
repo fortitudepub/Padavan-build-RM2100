@@ -10,6 +10,21 @@ if [[ $? != 0 ]]; then
     sysctl -w net.ipv4.tcp_adv_win_scale=1
 fi
 
+
+cmd=`iptables -t nat -L INPUT -n | grep 80`
+if [[ $? != 0 ]]; then
+	logger -t "fix-gfwlist" "fix ugly 80 port can't be accesed"
+	iptables -t nat -A INPUT -p tcp --dport 80 -d 192.168.2.1/32 -s 192.168.2.0/24 -j ACCEPT
+fi
+
+cmd=`iptables -t nat -L INPUT -n | grep 22`
+if [[ $? != 0 ]]; then
+	logger -t "fix-gfwlist" "fix ugly 22 port can't be accesed"
+	iptables -t nat -A INPUT -p tcp --dport 22 -d 192.168.2.1/32 -s 192.168.2.0/24 -j ACCEPT
+fi
+
+
+
 # check whitelist is ok by checking a random china prefix.
 cmd=`ipset list whitelist | grep 171.40.0.0`
 if [[ $? != 0 ]]; then
